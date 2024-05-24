@@ -1,6 +1,6 @@
 'use client'
 import React from "react";
-import {Input} from "@nextui-org/react";
+import {Button, Input} from "@nextui-org/react";
 import { EyeFilledIcon } from "@/component/eyeFilliedIcon/page";
 import { EyeSlashFilledIcon } from "@/component/eyeSlashFilledIcon/page";
 
@@ -48,6 +48,8 @@ export default function App() {
       type={isVisible ? "text" : "password"}
       className="max-w-xs"
     />
+    <span>Already have an account?<span className="text-blue-700"><a href="/home">Log In</a></span></span>
+    <Button > Login </Button>
     </div>
   );
 }

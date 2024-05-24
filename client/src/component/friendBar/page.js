@@ -20,7 +20,7 @@ export default function FriendBar() {
         {(item) => (
           <ListboxItem key={item.id} textValue={item.name}>
             <div className="flex gap-2 items-center">
-              <Avatar alt={item.name} className="flex-shrink-0" size="sm" src={item.photo} />
+              <Avatar alt={item.name} isBordered color={item.isOnline ? "success":"default"} className="flex-shrink-0" size="sm" src={item.photo} />
               <div className="flex flex-col">
                 <span className="text-small">{item.name}</span>
               </div>
