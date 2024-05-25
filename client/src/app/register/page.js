@@ -3,6 +3,8 @@ import React from "react";
 import {Button, Input} from "@nextui-org/react";
 import { EyeFilledIcon } from "@/component/eyeFilliedIcon/page";
 import { EyeSlashFilledIcon } from "@/component/eyeSlashFilledIcon/page";
+import Link from "next/link";
+import {DatePicker} from "@nextui-org/react";
 
 export default function App() {
   const [value, setValue] = React.useState("");
@@ -20,21 +22,28 @@ export default function App() {
   const toggleVisibility = () => setIsVisible(!isVisible)
 
   return (
-    <div className="">
-    <Input
+    <div className="flex justify-center py-36 bg-black">
+    <div className="flex bg-gray-900 w-max p-24">
+  <div >
+  <Input label="User Name" variant="bordered"/>
+  <Input label="Display Name" variant="bordered"/>
+  <Input
       value={value}
       type="email"
       label="Email"
+      isRequired
+      placeholder="Enter your email"
       variant="bordered"
       isInvalid={isInvalid}
-      color={isInvalid ? "danger" : "success"}
       errorMessage={isInvalid && "Please enter a valid email"}
       onValueChange={setValue}
-      className="max-w-xs"
+      className="max-w-xs text-white"
+
     />
-    <Input
+      <Input
       label="Password"
       variant="bordered"
+      isRequired
       placeholder="Enter your password"
       endContent={
         <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
@@ -46,10 +55,16 @@ export default function App() {
         </button>
       }
       type={isVisible ? "text" : "password"}
-      className="max-w-xs"
+      className="max-w-xs text-white"
     />
-    <span>Already have an account?<span className="text-blue-700"><a href="/home">Log In</a></span></span>
-    <Button > Login </Button>
+      <Button as={Link} href="/" radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg m-2">
+      Continue
+    </Button>
+    <br/>
+    <span className="text-white">Already have an account?<span className="text-blue-700"><a href="/register">Log In</a></span></span>
+  </div>
+  
+    </div>
     </div>
   );
 }

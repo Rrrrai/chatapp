@@ -1,35 +1,33 @@
 'use client'
-import React from 'react'
+import React from "react";
+import { Listbox, ListboxItem, Avatar } from "@nextui-org/react";
+import { Users } from "@/component/userList/page";
+import { ListboxWrapper } from "@/component/listboxWrapper/page";
 
-const MessageBar = () => {
-    const loggedInUser = 1
-    const messages = [
-        {message:'hi k cha' ,sender: 1, members:[1,2]},
-        {message:'thik cha' ,sender: 2, members:[1,2]},
-        {message:'tero k cha' ,sender: 2, members:[1,2]},
-        {message:'same, ok bye' ,sender: 1, members:[1,2]},
-        {message:'bye' ,sender: 2, members:[1,2]}
-    ]
+export default function FriendBar() {
+  const [values, setValues] = React.useState(new Set(["1"]));
+
   return (
-    <div className=''>
-            {
-                messages.map((item)=>{
-                    if(item.sender === loggedInUser){
-                        return(
-                            <>
-                             <div className='bg-blue-500 p-2 m-2 w-[60%] rounded-lg ml-10'>{item.message}</div>
-                            </>
-                         )
-                    }else{
-                        return(
-                            <>
-                             <div className='bg-gray-200 p-2 m-2 w-[60%] rounded-lg '>{item.message}</div>
-                            </>
-                         )
-                    }
-                })
-            }
-    </div>
-  )
+    <ListboxWrapper>
+      <Listbox
+        classNames={{
+          base: "max-w-xs",
+          list: "max-h-[300px] overflow-scroll",
+        }}
+        items={Users}
+        variant="flat"
+      >
+        {(item) => (
+          <ListboxItem key={item.id} textValue={item.name}>
+            <div className="flex gap-2 items-center">
+              <Avatar alt={item.name} isBordered color={item.isOnline ? "success":"default"} className="flex-shrink-0" size="sm" src={item.photo} />
+              <div className="flex flex-col">
+                <span className="text-small">{item.name}</span>
+              </div>
+            </div>
+          </ListboxItem>
+        )}
+      </Listbox>
+    </ListboxWrapper>
+  );
 }
-export default MessageBar

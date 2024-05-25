@@ -1,43 +1,68 @@
 'use client'
-import Image from "next/image";
+import React from "react";
 import {Button, Input} from "@nextui-org/react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateRideCount } from "@/redux/reducerSlices/userSlice";
-import { increaseHeight, increaseWidth,changeColor,changeShape,reset, switchArrow } from "@/redux/reducerSlices/boxSlice";
+import { EyeFilledIcon } from "@/component/eyeFilliedIcon/page";
+import { EyeSlashFilledIcon } from "@/component/eyeSlashFilledIcon/page";
+import Link from "next/link";
 
-export default function Home() {
-  //
-  const {width, height,left, backgroundColor,bottom, borderRadius} = useSelector(state=> state.box)
-  const dispatch = useDispatch()
-  let area
-  if(borderRadius === '0%'){
-    area = width * height
-  }else{
-    area = Math.PI * (width/2) **2
-  }
- 
+export default function App() {
+  const [value, setValue] = React.useState("");
+
+  const validateEmail = (value) => value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
+
+  const isInvalid = React.useMemo(() => {
+    if (value === "") return false;
+
+    return validateEmail(value) ? false : true;
+  }, [value]);
+
+  const [isVisible, setIsVisible] = React.useState(false);
+
+  const toggleVisibility = () => setIsVisible(!isVisible)
+
   return (
-    <main className="bg-black flex min-h-screen flex-col items-center justify-between p-4">
-     <span className="bg-white text-2xl">{area}</span> 
-      <div  onClick={()=> dispatch(changeShape())}
-       style={{width,height,backgroundColor,borderRadius, bottom:bottom, left:left, position:'relative'}}>
+    <div className="flex justify-center py-36 bg-black">
+    <div className="flex bg-gray-900 w-max p-24">
+  <div >
+  <Input
+      value={value}
+      isRequired
+      type="email"
+      label="Email"
+      placeholder="Enter your email"
+      size={"lg"}
+      variant="bordered"
+      isInvalid={isInvalid}
+      errorMessage={isInvalid && "Please enter a valid email"}
+      onValueChange={setValue}
+      className="max-w-xs text-white"
 
-      </div>
-
-      <Button onClick={()=> dispatch(reset())}>Reset</Button>
-      <div className="flex">
-    <Button onClick={()=>  dispatch(switchArrow({value:-60, type:'left'}))}> ← </Button>
-    <Button onClick={()=>  dispatch(switchArrow({value:60, type:'up'}))}> ↑ </Button>
-    <Button onClick={()=>  dispatch(switchArrow({value:-60, type:'down'}))}> ↓ </Button>
-    <Button onClick={()=>  dispatch(switchArrow({value:60, type:'right'}))}> → </Button>
+    />
+      <Input
+      label="Password"
+      variant="bordered"
+      isRequired
+      placeholder="Enter your password"
+      endContent={
+        <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
+          {isVisible ? (
+            <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+          ) : (
+            <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+          )}
+        </button>
+      }
+      type={isVisible ? "text" : "password"}
+      className="max-w-xs text-white"
+    />
+      <Button as={Link} href="/home" radius="full" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg m-2">
+      Login
+    </Button>
+    <br/>
+    <span className="text-white">Need an account?<span className="text-blue-700"><a href="/register">Sign Up</a></span></span>
+  </div>
+  
     </div>
-    <Input onChange={(e)=> dispatch(changeColor(e.target.value)) } placeholder="Enter color"/>
-    <Button onClick={()=> dispatch(increaseHeight())}>Increase height</Button>
-    <Button onClick={()=> dispatch(increaseWidth())}>Increase width</Button>
-
- 
-
-    
-    </main>
+    </div>
   );
 }
