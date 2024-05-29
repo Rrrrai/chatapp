@@ -8,7 +8,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='flex'>
+    <div className='flex h-screen w-screen bg-grey-500'>
         <div className='w-[15%] bg-gray-600'>
         <PersonalID/>    
         <FriendBar/>

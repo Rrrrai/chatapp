@@ -21,9 +21,8 @@ export default function App() {
   const toggleVisibility = () => setIsVisible(!isVisible)
 
   return (
-    <div className="flex justify-center py-36 bg-black">
-    <div className="flex bg-gray-900 w-max p-24">
-  <div >
+    <div className="bg-black h-screen flex items-center justify-center p-10">
+    <div className="bg-gray-900 w-max p-24">
   <Input
       value={value}
       isRequired
@@ -36,7 +35,6 @@ export default function App() {
       errorMessage={isInvalid && "Please enter a valid email"}
       onValueChange={setValue}
       className="max-w-xs text-white"
-
     />
       <Input
       label="Password"
@@ -59,9 +57,7 @@ export default function App() {
       Login
     </Button>
     <br/>
-    <span className="text-white">Need an account?<span className="text-blue-700"><a href="/register">Sign Up</a></span></span>
-  </div>
-  
+    <span className="text-white">Need an account?<span className="text-blue-700"><a href="/register">Sign Up</a></span></span>  
     </div>
     </div>
   );

@@ -22,11 +22,11 @@ export default function App() {
   const toggleVisibility = () => setIsVisible(!isVisible)
 
   return (
-    <div className="flex justify-center py-36 bg-black">
+    <div className="flex justify-center py-36 h-max bg-black">
     <div className="flex bg-gray-900 w-max p-24">
   <div >
-  <Input label="User Name" variant="bordered"/>
-  <Input label="Display Name" variant="bordered"/>
+  <Input label="User Name" variant="bordered" className="text-white"/>
+  <Input label="Display Name" variant="bordered" className="text-white"/>
   <Input
       value={value}
       type="email"
@@ -61,7 +61,7 @@ export default function App() {
       Continue
     </Button>
     <br/>
-    <span className="text-white">Already have an account?<span className="text-blue-700"><a href="/register">Log In</a></span></span>
+    <span className="text-white">Already have an account?<span className="text-blue-700"><a href="/">Log In</a></span></span>
   </div>
   
     </div>
