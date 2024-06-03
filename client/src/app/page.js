@@ -4,17 +4,35 @@ import {Button, Input} from "@nextui-org/react";
 import { EyeFilledIcon } from "@/component/eyeFilliedIcon/page";
 import { EyeSlashFilledIcon } from "@/component/eyeSlashFilledIcon/page";
 import Link from "next/link";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+
 
 export default function App() {
-  const [value, setValue] = React.useState("");
+  const SignupSchema = Yup.object().shape({
+    phoneNumber: Yup.string()
+    .required("*Cannot be empty")
+    ,
 
-  const validateEmail = (value) => value.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i);
+    password: Yup.string()
+    .min(3,'Invalid password')
+    .max(50, 'Invalid Password')
+    .required('*Cannot be empty')
+  });
 
-  const isInvalid = React.useMemo(() => {
-    if (value === "") return false;
+  const formik = useFormik({
+    initialValues: {
+      email:'',
+      password:'',
+    
+    },
 
-    return validateEmail(value) ? false : true;
-  }, [value]);
+    validationSchema:SignupSchema,
+    onSubmit: values => {
+    loginUser(values)
+    },
+  });
+
 
   const [isVisible, setIsVisible] = React.useState(false);
 
@@ -24,22 +42,20 @@ export default function App() {
     <div className="bg-black h-screen flex items-center justify-center p-10">
     <div className="bg-gray-900 w-max p-24">
   <Input
-      value={value}
-      isRequired
+      id="email"  
       type="email"
       label="Email"
       placeholder="Enter your email"
+      onChange={formik.handleChange}
+      value={formik.values.email}
       size={"lg"}
       variant="bordered"
-      isInvalid={isInvalid}
-      errorMessage={isInvalid && "Please enter a valid email"}
-      onValueChange={setValue}
       className="max-w-xs text-white"
     />
       <Input
+      id = "password"
       label="Password"
       variant="bordered"
-      isRequired
       placeholder="Enter your password"
       endContent={
         <button className="focus:outline-none" type="button" onClick={toggleVisibility}>
